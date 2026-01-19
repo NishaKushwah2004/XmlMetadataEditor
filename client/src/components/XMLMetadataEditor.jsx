@@ -11,7 +11,7 @@ import {
   Cloud,
   RefreshCw,
 } from "lucide-react";
-const API_URL = '/api/xml';
+const API_URL = import.meta.env.VITE_API_URL;
 
 const XMLMetadataEditor = () => {
   const [xmlData, setXmlData] = useState([]);
@@ -56,7 +56,7 @@ const XMLMetadataEditor = () => {
   const fetchSavedFiles = async () => {
     try {
       console.log("Fetching saved files...");
-      const response = await fetch(`${API_URL}/files`);
+      const response = await fetch(`${API_URL}/api/xml/files`);
       const data = await response.json();
       console.log("Files response:", data);
 
@@ -166,7 +166,7 @@ const XMLMetadataEditor = () => {
         contentLength: xml.length,
       });
 
-      const response = await fetch(`${API_URL}/save`, {
+      const response = await fetch(`${API_URL}/api/xml/save`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -203,7 +203,7 @@ const XMLMetadataEditor = () => {
     setLoading(true);
     try {
       console.log("Loading file:", filename);
-      const response = await fetch(`${API_URL}/load/${filename}`);
+      const response = await fetch(`${API_URL}/api/xml/load/${filename}`);
       const data = await response.json();
       console.log("Load response:", data);
 
@@ -251,7 +251,7 @@ const XMLMetadataEditor = () => {
     setLoading(true);
     try {
       console.log("Deleting file:", filename);
-      const response = await fetch(`${API_URL}/delete/${filename}`, {
+      const response = await fetch(`${API_URL}/api/xml/delete/${filename}`, {
         method: "DELETE",
       });
       const data = await response.json();
